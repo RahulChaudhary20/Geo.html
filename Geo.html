@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Share Current Location on WhatsApp</title>
+</head>
+<body>
+  <p>Click the button to share your current location on WhatsApp:</p>
+  <button onclick="shareLocationOnWhatsApp()">Share on WhatsApp</button>
+
+  <script>
+    function shareLocationOnWhatsApp() {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var latitude = position.coords.latitude;
+          var longitude = position.coords.longitude;
+          var locationURL = "https://maps.google.com/?q=" + latitude + "," + longitude;
+          var encodedLocationURL = encodeURIComponent(locationURL);
+          var phoneNumber = "918171146689";
+
+          var whatsappURL = "https://wa.me/" + phoneNumber + "?text=" + encodedLocationURL;
+          window.location.href = whatsappURL;
+        }, function(error) {
+          console.log("Error occurred while retrieving geolocation:", error);
+        });
+      } else {
+        console.log("Geolocation is not supported by your browser.");
+      }
+    }
+  </script>
+</body>
+</html>
